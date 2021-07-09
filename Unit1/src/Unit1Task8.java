@@ -15,6 +15,6 @@ public class Unit1Task8 {
             System.out.println(b);
         } else {
             System.out.println("Числа равны");
-                }
+        }
     }
 }
