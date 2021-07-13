@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Unit1Task8 {
+public class  Unit1Task8 {
     public static void main(String[] args) throws IOException {
         System.out.println("Введите первое число");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
