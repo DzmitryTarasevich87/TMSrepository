@@ -21,10 +21,10 @@ public class Unit3Task5 {
             System.out.print(mass2[i] + " ");
         }
         System.out.println();
-        if (mass1Average > mass2Average) {
+        if (mass1Average/mass1.length > mass2Average/mass2.length) {
             System.out.println("Среднее арифметическое первого массива больше");
         }
-        else if (mass2Average > mass1Average)
+        else if (mass2Average/mass2.length > mass1Average/mass1.length)
         {
             System.out.println("Среднее арифметическое второго массива больше");
         }else{

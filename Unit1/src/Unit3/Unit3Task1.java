@@ -8,7 +8,7 @@ public class Unit3Task1 {
             System.out.print(mass[i]+" ");
         }
         System.out.println();
-        for (int i = 0; i <= mass.length; i++) {
+        for (int i = 0; i < mass.length; i++) {
             System.out.println(mass[i]);
         }
     }
