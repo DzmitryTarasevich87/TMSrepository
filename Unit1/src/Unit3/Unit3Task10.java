@@ -31,6 +31,7 @@ public class Unit3Task10 {
                 System.out.print(mass2[j] + " ");
                 j++;
             }
+
         }
     }
 }
