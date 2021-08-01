@@ -19,4 +19,6 @@ public abstract class Transport {
                 " Максимальная скорость - " + maxSpeed + " км/ч" +
                 " Масса автомобиля - " + weight + " кг.");
     }
+
+
 }

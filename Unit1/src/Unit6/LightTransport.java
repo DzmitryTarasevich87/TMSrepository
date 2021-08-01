@@ -24,7 +24,7 @@ public class LightTransport extends TerrestrialTransport {
         );
     }
 
-    public void info2(double time) {
+    public void fuelСonsumption(double time) {
         double distance = time * maxSpeed;
         System.out.println();
         System.out.println("За время " + time + "ч," +
@@ -34,13 +34,13 @@ public class LightTransport extends TerrestrialTransport {
     }
 
     private double consumableFuel(double distance) {
-        return (double) (distance / 100) * fuelConsumption;
+        return (distance / 100) * fuelConsumption;
     }
 
     public static void main(String[] args) {
        Transport car1 = new LightTransport("BMW", 350, 280, 2700, 12, 4, "Coupe", 4);
         car1.info();
-        ((LightTransport) car1).info2(3.5);
+        ((LightTransport) car1).fuelСonsumption(3.5);
 
 
     }

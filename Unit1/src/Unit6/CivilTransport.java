@@ -4,6 +4,10 @@ public class CivilTransport extends AirTransport {
     private int numberOfPassengers;
     private boolean businessClassAvailability;
 
+    double powerKW() {
+        return power * 0.74;
+    }
+
     public CivilTransport(String brand, double power, int maxSpeed, int weight, double wingspan, int minLengthRunwayStrip, int numberOfPassengers, boolean businessClassAvailability) {
         super(power, maxSpeed, weight, brand, wingspan, minLengthRunwayStrip);
         this.numberOfPassengers = numberOfPassengers;
