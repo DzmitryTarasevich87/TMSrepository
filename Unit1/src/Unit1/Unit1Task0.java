@@ -1,3 +1,5 @@
+package Unit1;
+
 public class Unit1Task0 {
     public static void main(String[] args) {
         int day = 30;
