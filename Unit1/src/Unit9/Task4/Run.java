@@ -15,10 +15,10 @@ public class Run {
 
         for (int i = 0; i < arr.length; i++) {
             if (TextFormater.wordsCount(arr[i]) > 2 && TextFormater.wordsCount(arr[i]) < 6) {
-                print.println(arr[i]);
+                print.println(arr[i].trim());
             }
             if (TextFormater.palindrome(arr[i])) {
-                print.println(arr[i]);
+                print.println(arr[i].trim());
             }
         }
         sc.close();
