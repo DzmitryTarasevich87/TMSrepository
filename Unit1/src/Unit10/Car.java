@@ -51,5 +51,13 @@ public class Car {
             System.out.println(brand + " завелась");
         }
     }
+
+    public void method(Car car){
+        try {
+            car.start();
+        } catch (StartException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
 
