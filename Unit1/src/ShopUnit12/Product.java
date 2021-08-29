@@ -1,15 +1,23 @@
 package ShopUnit12;
 
+import java.time.LocalDateTime;
+
+
 public class Product {
 
     private int id;
     private String name;
     private int price;
+    private LocalDateTime dateAdded = LocalDateTime.now();
 
     public Product(int id, String name, int price) {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public LocalDateTime getDateAdded() {
+        return dateAdded;
     }
 
     public int getId() {

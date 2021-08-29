@@ -49,13 +49,15 @@ public class Application {
                 "4. вернуться в прошлое меню");
         int choice = sc.nextInt();
         if (choice == 1) {
-            sortInAscending(shop.productsList);
+            sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getPrice)));
         }
         if (choice == 2) {
-            sortInDescending(shop.productsList);
+            sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getPrice).reversed()));
         }
         if (choice == 3) {
-            sortByAddition(shop.productsList);
+
+            sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getDateAdded)));
+
         }
         if (choice == 4) {
             start();
@@ -63,20 +65,11 @@ public class Application {
 
     }
 
-    public void sortInAscending(List<Product> list) {
-        list.sort(Comparator.comparing(Product::getPrice));
-        System.out.println(list);
-    }
+    public void sortWithLambda(List<Product> list, AnySort sort) {
 
-    public void sortInDescending(List<Product> list) {
-        list.sort(Comparator.comparing(Product::getPrice).reversed());
+        sort.doing(list);
         System.out.println(list);
-    }
 
-    public void sortByAddition(List<Product> list) {
-        for (int i = list.size() - 1; i >= 0; i--) {
-            System.out.println(list.get(i));
-        }
     }
 
     public void addProduct() {
@@ -123,4 +116,11 @@ public class Application {
 
     }
 
+
 }
+
+@FunctionalInterface
+interface AnySort {
+    void doing(List<Product> productList);
+}
+
