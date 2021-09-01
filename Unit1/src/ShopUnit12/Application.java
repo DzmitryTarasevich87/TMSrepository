@@ -87,10 +87,10 @@ public class Application {
 
     public void deleteProd() {
 
+
         System.out.println("Введите id товара");
         int idProd = sc.nextInt();
-
-        shop.deleteProduct(idProd);
+        shop.productsList.removeIf(i -> i.getId() == idProd);
 
     }
 
@@ -105,14 +105,12 @@ public class Application {
         int priceProd = sc.nextInt();
 
 
-        int a = 0;
         for (int i = 0; i < shop.productsList.size(); i++) {
             if (shop.productsList.get(i).getId() == idProd) {
-                a = i;
+                shop.productsList.get(i).setName(nameProd);
+                shop.productsList.get(i).setPrice(priceProd);
             }
         }
-        shop.productsList.get(a).setName(nameProd);
-        shop.productsList.get(a).setPrice(priceProd);
 
     }
 
