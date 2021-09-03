@@ -2,7 +2,9 @@ package ShopUnit12;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Application {
 
@@ -46,7 +48,8 @@ public class Application {
                 "1. цене(возростание)\n" +
                 "2. цене(убывание)\n" +
                 "3. по добавлению\n" +
-                "4. вернуться в прошлое меню");
+                "4. фильтр по цене\n" +
+                "5. вернуться в прошлое меню");
         int choice = sc.nextInt();
         if (choice == 1) {
             sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getPrice)));
@@ -60,8 +63,12 @@ public class Application {
 
         }
         if (choice == 4) {
+            filterByPrice();
+        }
+        if (choice == 5) {
             start();
         }
+
 
     }
 
@@ -81,12 +88,14 @@ public class Application {
         System.out.println("Введите цену товара");
         int priceProd = sc.nextInt();
 
-        shop.addProduct(new Product(idProd, nameProd, priceProd));
-
+        Optional<Product> isPresent = shop.productsList.stream().filter(p -> p.getId() == idProd).findAny();
+        isPresent.ifPresentOrElse(
+                v -> System.out.println("Товар с таким id уже существует"),
+                () -> shop.productsList.add(new Product(idProd, nameProd, priceProd))
+        );
     }
 
     public void deleteProd() {
-
 
         System.out.println("Введите id товара");
         int idProd = sc.nextInt();
@@ -96,7 +105,6 @@ public class Application {
 
     public void editProduct() {
 
-
         System.out.println("Введите id товара");
         int idProd = sc.nextInt();
         System.out.println("Введите название товара");
@@ -104,16 +112,26 @@ public class Application {
         System.out.println("Введите цену товара");
         int priceProd = sc.nextInt();
 
-
-        for (int i = 0; i < shop.productsList.size(); i++) {
-            if (shop.productsList.get(i).getId() == idProd) {
-                shop.productsList.get(i).setName(nameProd);
-                shop.productsList.get(i).setPrice(priceProd);
-            }
+        Optional<Product> optionalProduct = shop.productsList.stream()
+                .filter(p -> p.getId() == idProd)
+                .findAny();
+        if (optionalProduct.isPresent()) {
+            optionalProduct.get().setName(nameProd);
+            optionalProduct.get().setPrice(priceProd);
         }
-
     }
 
+    public void filterByPrice() {
+        System.out.println("Введите минимальную стоимость товара");
+        int minPrice = sc.nextInt();
+        System.out.println("Введите максимальную стоимость товара");
+        int maxPrice = sc.nextInt();
+
+        System.out.println(shop.productsList.stream()
+                .filter(p -> p.getPrice() >= minPrice && p.getPrice() <= maxPrice)
+                .collect(Collectors.toList()));
+
+    }
 
 }
 
