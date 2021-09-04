@@ -1,18 +1,25 @@
 package ShopUnit12;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Application {
 
     private Shop shop = new Shop();
     Scanner sc = new Scanner(System.in);
+    File shopProductList = new File("Unit1/src/ShopUnit12/shop_product_list.dat");
 
     public void start() {
 
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(shopProductList))) {
+
+            shop.productsList = (ArrayList) ois.readObject();
+
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         while (true) {
             System.out.println("Добро пожаловать в магазин!\n" +
@@ -36,11 +43,13 @@ public class Application {
             }
             if (a == 5) {
                 System.out.println("Всего доброго!");
+                saveProductList();
                 break;
             }
         }
 
     }
+
 
     public void showShop() {
 
@@ -73,10 +82,20 @@ public class Application {
     }
 
     public void sortWithLambda(List<Product> list, AnySort sort) {
-
         sort.doing(list);
         System.out.println(list);
+    }
 
+    public List<Product> editShopList() {
+        return shop.productsList;
+    }
+
+    public void saveProductList() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(shopProductList))) {
+            oos.writeObject(editShopList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addProduct() {
@@ -87,12 +106,15 @@ public class Application {
         String nameProd = sc.next();
         System.out.println("Введите цену товара");
         int priceProd = sc.nextInt();
+        Product product = new Product(idProd, nameProd, priceProd);
 
         Optional<Product> isPresent = shop.productsList.stream().filter(p -> p.getId() == idProd).findAny();
         isPresent.ifPresentOrElse(
                 v -> System.out.println("Товар с таким id уже существует"),
-                () -> shop.productsList.add(new Product(idProd, nameProd, priceProd))
+                () -> shop.productsList.add(product)
         );
+
+
     }
 
     public void deleteProd() {

@@ -1,9 +1,10 @@
 package ShopUnit12;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
-public class Product {
+public class Product implements Serializable {
 
     private int id;
     private String name;
