@@ -2,7 +2,6 @@ package ShopUnit12;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Application {
 
@@ -12,15 +11,7 @@ public class Application {
 
     public void start() {
 
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(shopProductList))) {
-
-            shop.productsList = (ArrayList) ois.readObject();
-
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        loadProductList();
         while (true) {
             System.out.println("Добро пожаловать в магазин!\n" +
                     "1. Просмотр товаров\n" +
@@ -47,9 +38,7 @@ public class Application {
                 break;
             }
         }
-
     }
-
 
     public void showShop() {
 
@@ -61,15 +50,13 @@ public class Application {
                 "5. вернуться в прошлое меню");
         int choice = sc.nextInt();
         if (choice == 1) {
-            sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getPrice)));
+            shop.sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getPrice)));
         }
         if (choice == 2) {
-            sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getPrice).reversed()));
+            shop.sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getPrice).reversed()));
         }
         if (choice == 3) {
-
-            sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getDateAdded)));
-
+            shop.sortWithLambda(shop.productsList, sorter -> shop.productsList.sort(Comparator.comparing(Product::getDateAdded)));
         }
         if (choice == 4) {
             filterByPrice();
@@ -77,52 +64,38 @@ public class Application {
         if (choice == 5) {
             start();
         }
-
-
-    }
-
-    public void sortWithLambda(List<Product> list, AnySort sort) {
-        sort.doing(list);
-        System.out.println(list);
-    }
-
-    public List<Product> editShopList() {
-        return shop.productsList;
-    }
-
-    public void saveProductList() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(shopProductList))) {
-            oos.writeObject(editShopList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void addProduct() {
-
         System.out.println("Введите id товара");
         int idProd = sc.nextInt();
         System.out.println("Введите название товара");
         String nameProd = sc.next();
         System.out.println("Введите цену товара");
         int priceProd = sc.nextInt();
-        Product product = new Product(idProd, nameProd, priceProd);
-
-        Optional<Product> isPresent = shop.productsList.stream().filter(p -> p.getId() == idProd).findAny();
-        isPresent.ifPresentOrElse(
-                v -> System.out.println("Товар с таким id уже существует"),
-                () -> shop.productsList.add(product)
-        );
-
-
+        shop.addProduct(idProd, nameProd, priceProd);
     }
 
     public void deleteProd() {
-
         System.out.println("Введите id товара");
         int idProd = sc.nextInt();
-        shop.productsList.removeIf(i -> i.getId() == idProd);
+        shop.deleteProd(idProd);
+    }
 
+    public void loadProductList() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(shopProductList))) {
+            shop.productsList = (ArrayList) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveProductList() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(shopProductList))) {
+            oos.writeObject(shop.editShopList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void editProduct() {
@@ -134,13 +107,7 @@ public class Application {
         System.out.println("Введите цену товара");
         int priceProd = sc.nextInt();
 
-        Optional<Product> optionalProduct = shop.productsList.stream()
-                .filter(p -> p.getId() == idProd)
-                .findAny();
-        if (optionalProduct.isPresent()) {
-            optionalProduct.get().setName(nameProd);
-            optionalProduct.get().setPrice(priceProd);
-        }
+        shop.editProduct(idProd, nameProd, priceProd);
     }
 
     public void filterByPrice() {
@@ -148,17 +115,9 @@ public class Application {
         int minPrice = sc.nextInt();
         System.out.println("Введите максимальную стоимость товара");
         int maxPrice = sc.nextInt();
-
-        System.out.println(shop.productsList.stream()
-                .filter(p -> p.getPrice() >= minPrice && p.getPrice() <= maxPrice)
-                .collect(Collectors.toList()));
-
+        shop.filterByPrice(minPrice, maxPrice);
     }
-
 }
 
-@FunctionalInterface
-interface AnySort {
-    void doing(List<Product> productList);
-}
+
 
