@@ -2,6 +2,8 @@ package ShopUnit12;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Application {
 
@@ -67,10 +69,20 @@ public class Application {
     }
 
     public void addProduct() {
+        String nameProd;
         System.out.println("Введите id товара");
         int idProd = sc.nextInt();
         System.out.println("Введите название товара");
-        String nameProd = sc.next();
+        while (true) {
+            String name = sc.nextLine();
+            if (checkName(name)) {
+                nameProd = name;
+                break;
+            } else {
+                System.out.println("Неккоректное название");
+            }
+        }
+
         System.out.println("Введите цену товара");
         int priceProd = sc.nextInt();
         shop.addProduct(idProd, nameProd, priceProd);
@@ -99,11 +111,19 @@ public class Application {
     }
 
     public void editProduct() {
-
+        String nameProd;
         System.out.println("Введите id товара");
         int idProd = sc.nextInt();
         System.out.println("Введите название товара");
-        String nameProd = sc.next();
+        while (true) {
+            String name = sc.nextLine();
+            if (checkName(name)) {
+                nameProd = name;
+                break;
+            } else {
+                System.out.println("Неккоректное название");
+            }
+        }
         System.out.println("Введите цену товара");
         int priceProd = sc.nextInt();
 
@@ -116,6 +136,12 @@ public class Application {
         System.out.println("Введите максимальную стоимость товара");
         int maxPrice = sc.nextInt();
         shop.filterByPrice(minPrice, maxPrice);
+    }
+
+    public boolean checkName(String name) {
+        Pattern pattern = Pattern.compile("^[A-ZА-Я]([a-zа-я]+\\s?)+\\S(\\s?\\d\\s?\\d*)*");
+        Matcher matcher = pattern.matcher(name);
+        return matcher.find();
     }
 }
 
