@@ -139,7 +139,7 @@ public class Application {
     }
 
     public boolean checkName(String name) {
-        Pattern pattern = Pattern.compile("^[A-ZА-Я]([a-zа-я]+\\s?)+\\S(\\s?\\d\\s?\\d*)*");
+        Pattern pattern = Pattern.compile("[A-ZА-Я]\\s?([a-zа-я]+\\s?)*\\S?(\\s?\\d\\s?\\d*)*");
         Matcher matcher = pattern.matcher(name);
         return matcher.find();
     }
