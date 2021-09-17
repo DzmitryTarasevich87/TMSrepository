@@ -42,7 +42,8 @@ public class Shop {
 
     public void filterByPrice(int minPrice, int maxPrice) {
         System.out.println(productsList.stream()
-                .filter(p -> p.getPrice() >= minPrice && p.getPrice() <= maxPrice)
+                .filter(p -> p.getPrice() >= minPrice)
+                .filter(p -> p.getPrice() <= maxPrice)
                 .collect(Collectors.toList()));
     }
 
