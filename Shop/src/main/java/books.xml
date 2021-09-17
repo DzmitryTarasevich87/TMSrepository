@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Library>
+    <name>library</name>
+    <serial>
+        <articleNumber>123</articleNumber>
+        <name>Learn Java</name>
+        <yearOfPublication>2012</yearOfPublication>
+        <serialBooks>
+            <articleNumber>3212</articleNumber>
+            <name>War and War</name>
+            <yearOfPublication>1841</yearOfPublication>
+        </serialBooks>
+    </serial>
+    <serial>
+        <articleNumber>234</articleNumber>
+        <name>Learn English</name>
+        <yearOfPublication>2014</yearOfPublication>
+        <serialBooks>
+            <articleNumber>3212</articleNumber>
+            <name>War and War</name>
+            <yearOfPublication>1841</yearOfPublication>
+        </serialBooks>
+    </serial>
+    <serial>
+        <articleNumber>345</articleNumber>
+        <name>Learn HTML</name>
+        <yearOfPublication>2015</yearOfPublication>
+        <serialBooks>
+            <articleNumber>3212</articleNumber>
+            <name>War and War</name>
+            <yearOfPublication>1841</yearOfPublication>
+        </serialBooks>
+    </serial>
+    <serial>
+        <articleNumber>321</articleNumber>
+        <name>War and Peace</name>
+        <yearOfPublication>1876</yearOfPublication>
+        <serialBooks>
+            <articleNumber>3212</articleNumber>
+            <name>War and War</name>
+            <yearOfPublication>1841</yearOfPublication>
+        </serialBooks>
+    </serial>
+    <serial>
+        <articleNumber>3212</articleNumber>
+        <name>War and War</name>
+        <yearOfPublication>1841</yearOfPublication>
+    </serial>
+</Library>
