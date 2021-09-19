@@ -103,7 +103,7 @@ public class Application {
         shop.deleteProd(idProd);
     }
 
-    public void loadProductList() {
+    public  void loadProductList() {
         try {
             ObjectMapper mapper = new ObjectMapper();
             shop.productsList =  mapper.readValue(shopProductList, new TypeReference<List<Product>>(){});

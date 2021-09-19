@@ -1,9 +1,8 @@
 Product.class
-BookMain.class
 Main.class
+Producer.class
 Application$1.class
-Library.class
+Consumer.class
 Application.class
 Shop.class
-Book.class
 AnySort.class
